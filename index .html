@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DAA Portfolio – Sudharsan PS</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: #1e1e2e;
+    --accent: #7c3aed;
+    --accent2: #06b6d4;
+    --accent3: #f59e0b;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --card: #13131f;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 40% at 20% 10%, rgba(124,58,237,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 80% 80%, rgba(6,182,212,0.08) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 60px;
+    animation: fadeDown 0.8s ease both;
+  }
+
+  .header .tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    border: 1px solid rgba(6,182,212,0.3);
+    padding: 4px 14px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 30%, var(--accent) 70%, var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+
+  .header p {
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 50px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .nav a {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .nav a:hover {
+    color: var(--text);
+    border-color: var(--accent);
+    background: rgba(124,58,237,0.08);
+  }
+
+  .section {
+    margin-bottom: 40px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .section-num {
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    font-weight: 500;
+    min-width: 30px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.02em;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .field-grid { display: grid; gap: 0; }
+  .field-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+
+  @media (max-width: 600px) {
+    .field-grid.cols-2 { grid-template-columns: 1fr; }
+  }
+
+  .field {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+
+  .field:last-child { border-bottom: none; }
+
+  .field-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    padding-top: 4px;
+    font-weight: 500;
+  }
+
+  .field-value {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .skills-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .skill-tag {
+    background: rgba(124,58,237,0.15);
+    border: 1px solid rgba(124,58,237,0.4);
+    color: var(--accent);
+    font-size: 11px;
+    padding: 3px 12px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+  }
+
+  .semester-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  .semester-table th {
+    text-align: left;
+    padding: 10px 16px;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  .semester-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 12px;
+  }
+
+  .semester-table tr:last-child td { border-bottom: none; }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 2px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  .badge-green {
+    background: rgba(16,185,129,0.15);
+    color: #10b981;
+    border: 1px solid rgba(16,185,129,0.3);
+  }
+
+  .badge-yellow {
+    background: rgba(245,158,11,0.15);
+    color: var(--accent3);
+    border: 1px solid rgba(245,158,11,0.3);
+  }
+
+  .entry {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  .entry-header {
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid var(--border);
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .entry .field { border-bottom: 1px solid var(--border); }
+  .entry .field:last-child { border-bottom: none; }
+
+  .cert-num {
+    display: inline-block;
+    background: rgba(6,182,212,0.1);
+    border: 1px solid rgba(6,182,212,0.3);
+    color: var(--accent2);
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-right: 8px;
+  }
+
+  .empty-note {
+    color: var(--muted);
+    font-size: 12px;
+    font-style: italic;
+    padding: 20px;
+    text-align: center;
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="tag">Design & Analysis of Algorithms</div>
+    <h1>Sudharsan PS</h1>
+    <p>RA2411003050221 · B.Tech CSE · CGPA 8.2</p>
+  </div>
+
+  <nav class="nav">
+    <a href="#s1">Profile</a>
+    <a href="#s2">Academics</a>
+    <a href="#s3">Projects</a>
+    <a href="#s4">Certifications</a>
+    <a href="#s5">Internships</a>
+    <a href="#s6">Achievements</a>
+  </nav>
+
+  <!-- Section 1 -->
+  <div class="section" id="s1">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <span class="section-title">Student Profile</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="card">
+      <div class="field-grid cols-2">
+        <div class="field">
+          <span class="field-label">Full Name</span>
+          <span class="field-value">Sudharsan PS</span>
+        </div>
+        <div class="field">
+          <span class="field-label">Roll Number</span>
+          <span class="field-value">RA2411003050221</span>
+        </div>
+        <div class="field">
+          <span class="field-label">Email</span>
+          <span class="field-value">pssudharsan5@gmail.com</span>
+        </div>
+        <div class="field">
+          <span class="field-label">Phone</span>
+          <span class="field-value">8778573609</span>
+        </div>
+        <div class="field" style="grid-column: 1 / -1;">
+          <span class="field-label">Department</span>
+          <span class="field-value">B.Tech Computer Science & Engineering</span>
+        </div>
+        <div class="field" style="grid-column: 1 / -1;">
+          <span class="field-label">Skills</span>
+          <div class="skills-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">C++</span>
+            <span class="skill-tag">C</span>
+          </div>
+        </div>
+        <div class="field" style="grid-column: 1 / -1;">
+          <span class="field-label">About Me</span>
+          <span class="field-value">B.Tech CSE student with a strong foundation in programming languages including Python, C++, and C. Passionate about building innovative tech solutions with real-world impact, as demonstrated through projects like a Smart Parking System using computer vision.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section" id="s2">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <span class="section-title">Academic Details</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="card">
+      <table class="semester-table">
+        <thead>
+          <tr>
+            <th>Semester</th>
+            <th>SGPA</th>
+            <th>Key Subjects</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Semester 1</td>
+            <td>—</td>
+            <td>Engineering Fundamentals</td>
+            <td><span class="badge badge-green">Completed</span></td>
+          </tr>
+          <tr>
+            <td>Semester 2</td>
+            <td>—</td>
+            <td>Programming, Maths</td>
+            <td><span class="badge badge-green">Completed</span></td>
+          </tr>
+          <tr>
+            <td>Semester 3</td>
+            <td>—</td>
+            <td>DSA, DBMS, OS</td>
+            <td><span class="badge badge-green">Completed</span></td>
+          </tr>
+          <tr>
+            <td>Semester 4</td>
+            <td>—</td>
+            <td>DAA, Networks, Web Tech</td>
+            <td><span class="badge badge-yellow">In Progress</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <div class="field">
+        <span class="field-label">CGPA</span>
+        <span class="field-value">8.2 / 10</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Current Semester</span>
+        <span class="field-value">4th Semester</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section" id="s3">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <span class="section-title">Projects</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="entry">
+      <div class="entry-header">Smart Parking System with Real-Time Occupancy</div>
+      <div class="field">
+        <span class="field-label">Description</span>
+        <span class="field-value">An innovative smart parking system that uses computer vision to detect free slots inside a parking area and displays real-time occupancy status on a web page, helping users find available parking quickly and efficiently.</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Tools Used</span>
+        <div class="skills-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">OpenCV</span>
+          <span class="skill-tag">In/Out Sensor</span>
+        </div>
+      </div>
+      <div class="field">
+        <span class="field-label">GitHub / Link</span>
+        <span class="field-value" style="color: var(--muted); font-style: italic;">— To be added —</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="section" id="s4">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <span class="section-title">Certifications</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="cert-num">01</span>
+        Social Impact Strategy: Tools for Entrepreneurs and Innovators
+      </div>
+      <div class="field">
+        <span class="field-label">Platform</span>
+        <span class="field-value">Coursera</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Issued By</span>
+        <span class="field-value">Coursera</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Date</span>
+        <span class="field-value">15 February 2026</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="cert-num">02</span>
+        Beyond the Sustainable Development Goals (SDGs): Addressing Sustainability and Development
+      </div>
+      <div class="field">
+        <span class="field-label">Platform</span>
+        <span class="field-value">Coursera</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Issued By</span>
+        <span class="field-value">Coursera</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Date</span>
+        <span class="field-value">15 February 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="section" id="s5">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <span class="section-title">Internships</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="empty-note">No internships added yet — update this section when you complete one! 🚀</div>
+  </div>
+
+  <!-- Section 6 -->
+  <div class="section" id="s6">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <span class="section-title">Achievements</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="empty-note">No achievements added yet — add your awards and competition wins here! 🏆</div>
+  </div>
+
+</div>
+</body>
+</html>
